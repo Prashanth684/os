@@ -11,17 +11,15 @@ ARG VARIANT
 RUN if [[ -z "$COSA" ]] ; then ci/get-ocp-repo.sh ; fi
 # On SCOS, we need to add the GPG keys of the various SIGs we need
 RUN if rpm -q centos-stream-release; then \
-        if [[ $(rpm -q --qf "%{VERSION}" centos-stream-release) == "9.0" ]]; then \
-            if ! rpm -q centos-release-cloud; then \
-                dnf install -y centos-release-{cloud,nfv,virt}-common; \
-            fi && \
-            mkdir -p /usr/share/distribution-gpg-keys/centos && \
-            ln -s /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial /usr/share/distribution-gpg-keys/centos/RPM-GPG-KEY-CentOS-Official && \
-            ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-Cloud && \
-            ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-Extras-SHA512 && \
-            ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-NFV && \
-            ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-Virtualization ; \
-        fi ; \
+        if ! rpm -q centos-release-cloud; then \
+            dnf install -y centos-release-{cloud,nfv,virt}-common; \
+        fi && \
+        mkdir -p /usr/share/distribution-gpg-keys/centos && \
+        ln -s /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial /usr/share/distribution-gpg-keys/centos/RPM-GPG-KEY-CentOS-Official && \
+        ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-Cloud && \
+        ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-Extras-SHA512 && \
+        ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-NFV && \
+        ln -s {/etc/pki/rpm-gpg,/usr/share/distribution-gpg-keys/centos}/RPM-GPG-KEY-CentOS-SIG-Virtualization ; \
     fi
 RUN if [[ -n "${VARIANT}" ]]; then \
         MANIFEST="manifest-${VARIANT}.yaml"; \

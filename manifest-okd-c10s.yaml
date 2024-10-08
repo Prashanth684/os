@@ -4,7 +4,7 @@
 rojig:
   license: MIT
   name: scos
-  summary: OKD 4.17
+  summary: OKD 4.18
 
 variables:
   osversion: "c10s"
@@ -16,24 +16,24 @@ include:
 # Additional repos we need for OKD components
 repos:
   # For containernetworking-plugins for cri-o
-  - rhel-9.4-appstream
+  # - rhel-9.4-appstream
   # CentOS Extras Common repo for SIG RPM GPG keys
-  # - c10s-extras-common
+  - c9s-extras-common
   # CentOS NFV SIG repo for openvswitch
-  # - c10s-sig-nfv
+  - c9s-sig-nfv
   # For openvswitch
-  - rhel-9.4-fast-datapath
+  #- rhel-9.4-fast-datapath
   # CentOS Cloud SIG repo for cri-o, cri-tools and conmon-rs
-  # - c10s-sig-cloud-okd
+  - c9s-sig-cloud-okd
   # Include RHCOS 9 repo for oc, hyperkube
-  - rhel-9.4-server-ose-4.17
+  - rhel-9.4-server-ose-4.18
 
 # We include hours/minutes to avoid version number reuse
-automatic-version-prefix: "417.10.<date:%Y%m%d%H%M>"
+automatic-version-prefix: "418.10.<date:%Y%m%d%H%M>"
 # This ensures we're semver-compatible which OpenShift wants
 automatic-version-suffix: "-"
 # Keep this is sync with the version in postprocess
-mutate-os-release: "4.17"
+mutate-os-release: "4.18"
 
 postprocess:
   - |
@@ -95,9 +95,9 @@ postprocess:
 
 packages:
  # RPM GPG keys for CentOS SIG repos
- # - centos-release-cloud-common
- # - centos-release-nfv-common
- # - centos-release-virt-common
+ - centos-release-cloud-common
+ - centos-release-nfv-common
+ - centos-release-virt-common
 
 # Packages pinned to specific repos in SCOS 9
 repo-packages:

@@ -83,8 +83,8 @@ postprocess:
     # that contains /usr/libexec/crio/conmon - WHY?
     # sed -i '/conmon.*=/d' /etc/crio/crio.conf
     # Oh right but the MCO overrides that too so...
-    mkdir -p /usr/libexec/crio
-    ln -sr /usr/bin/conmon /usr/libexec/crio/conmon
+    # mkdir -p /usr/libexec/crio
+    # ln -sr /usr/bin/conmon /usr/libexec/crio/conmon
 
   # Inject OpenShift-specific release fields
   - |
